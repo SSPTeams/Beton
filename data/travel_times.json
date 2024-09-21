@@ -1,0 +1,62 @@
+[
+    {
+        "plant_id": 1,
+        "customer_id": 1,
+        "travel_time_minutes": 39
+    },
+    {
+        "plant_id": 1,
+        "customer_id": 2,
+        "travel_time_minutes": 42
+    },
+    {
+        "plant_id": 1,
+        "customer_id": 3,
+        "travel_time_minutes": 38
+    },
+    {
+        "plant_id": 2,
+        "customer_id": 1,
+        "travel_time_minutes": 20
+    },
+    {
+        "plant_id": 2,
+        "customer_id": 2,
+        "travel_time_minutes": 33
+    },
+    {
+        "plant_id": 2,
+        "customer_id": 3,
+        "travel_time_minutes": 21
+    },
+    {
+        "plant_id": 3,
+        "customer_id": 1,
+        "travel_time_minutes": 23
+    },
+    {
+        "plant_id": 3,
+        "customer_id": 2,
+        "travel_time_minutes": 35
+    },
+    {
+        "plant_id": 3,
+        "customer_id": 3,
+        "travel_time_minutes": 34
+    },
+    {
+        "plant_id": 4,
+        "customer_id": 1,
+        "travel_time_minutes": 27
+    },
+    {
+        "plant_id": 4,
+        "customer_id": 2,
+        "travel_time_minutes": 30
+    },
+    {
+        "plant_id": 4,
+        "customer_id": 3,
+        "travel_time_minutes": 26
+    }
+]

@@ -1,0 +1,429 @@
+[
+    {
+        "id": 1,
+        "good_id": 15,
+        "good_mix_time": [
+            {
+                "mixer_id": 1,
+                "mix_time": 58
+            },
+            {
+                "mixer_id": 2,
+                "mix_time": 89
+            },
+            {
+                "mixer_id": 3,
+                "mix_time": 114
+            },
+            {
+                "mixer_id": 4,
+                "mix_time": 65
+            }
+        ],
+        "status": "new",
+        "total": 116,
+        "work": 41,
+        "wait": 17,
+        "date_shipment": "2024-10-02",
+        "first_order_time_delivery": "09:00:00",
+        "time_unloading": 39,
+        "type_delivery": "withoutInterval",
+        "time_interval_client": 48,
+        "axle": 4,
+        "gidrolotok": false,
+        "mixers": [
+            4
+        ],
+        "vehicles": [
+            13,
+            8
+        ],
+        "delivery_address_id": 1
+    },
+    {
+        "id": 2,
+        "good_id": 15,
+        "good_mix_time": [
+            {
+                "mixer_id": 1,
+                "mix_time": 57
+            },
+            {
+                "mixer_id": 2,
+                "mix_time": 101
+            },
+            {
+                "mixer_id": 3,
+                "mix_time": 124
+            },
+            {
+                "mixer_id": 4,
+                "mix_time": 88
+            }
+        ],
+        "status": "new",
+        "total": 108,
+        "work": 14,
+        "wait": 97,
+        "date_shipment": "2024-09-30",
+        "first_order_time_delivery": "10:00:00",
+        "time_unloading": 23,
+        "type_delivery": "withInterval",
+        "time_interval_client": 44,
+        "axle": 4,
+        "gidrolotok": true,
+        "mixers": [
+            4,
+            2,
+            3
+        ],
+        "vehicles": [
+            4,
+            10
+        ],
+        "delivery_address_id": 1
+    },
+    {
+        "id": 3,
+        "good_id": 19,
+        "good_mix_time": [
+            {
+                "mixer_id": 1,
+                "mix_time": 82
+            },
+            {
+                "mixer_id": 2,
+                "mix_time": 124
+            },
+            {
+                "mixer_id": 3,
+                "mix_time": 148
+            },
+            {
+                "mixer_id": 4,
+                "mix_time": 34
+            }
+        ],
+        "status": "work",
+        "total": 148,
+        "work": 18,
+        "wait": 73,
+        "date_shipment": "2024-09-28",
+        "first_order_time_delivery": "11:00:00",
+        "time_unloading": 53,
+        "type_delivery": "withInterval",
+        "time_interval_client": 18,
+        "axle": 4,
+        "gidrolotok": false,
+        "mixers": [
+            4,
+            2,
+            3,
+            1
+        ],
+        "vehicles": [
+            5,
+            10
+        ],
+        "delivery_address_id": 1
+    },
+    {
+        "id": 4,
+        "good_id": 17,
+        "good_mix_time": [
+            {
+                "mixer_id": 1,
+                "mix_time": 126
+            },
+            {
+                "mixer_id": 2,
+                "mix_time": 115
+            },
+            {
+                "mixer_id": 3,
+                "mix_time": 68
+            },
+            {
+                "mixer_id": 4,
+                "mix_time": 66
+            }
+        ],
+        "status": "new",
+        "total": 118,
+        "work": 33,
+        "wait": 25,
+        "date_shipment": "2024-09-27",
+        "first_order_time_delivery": "09:00:00",
+        "time_unloading": 24,
+        "type_delivery": "withInterval",
+        "time_interval_client": 47,
+        "axle": 4,
+        "gidrolotok": false,
+        "mixers": [
+            2,
+            1,
+            4,
+            3
+        ],
+        "vehicles": [
+            7,
+            3,
+            8
+        ],
+        "delivery_address_id": 1
+    },
+    {
+        "id": 5,
+        "good_id": 18,
+        "good_mix_time": [
+            {
+                "mixer_id": 1,
+                "mix_time": 117
+            },
+            {
+                "mixer_id": 2,
+                "mix_time": 99
+            },
+            {
+                "mixer_id": 3,
+                "mix_time": 118
+            },
+            {
+                "mixer_id": 4,
+                "mix_time": 108
+            }
+        ],
+        "status": "work",
+        "total": 166,
+        "work": 25,
+        "wait": 26,
+        "date_shipment": "2024-10-02",
+        "first_order_time_delivery": "09:00:00",
+        "time_unloading": 54,
+        "type_delivery": "withInterval",
+        "time_interval_client": 27,
+        "axle": 4,
+        "gidrolotok": false,
+        "mixers": [
+            1
+        ],
+        "vehicles": [
+            14,
+            13,
+            8
+        ],
+        "delivery_address_id": 3
+    },
+    {
+        "id": 6,
+        "good_id": 16,
+        "good_mix_time": [
+            {
+                "mixer_id": 1,
+                "mix_time": 109
+            },
+            {
+                "mixer_id": 2,
+                "mix_time": 40
+            },
+            {
+                "mixer_id": 3,
+                "mix_time": 112
+            },
+            {
+                "mixer_id": 4,
+                "mix_time": 131
+            }
+        ],
+        "status": "new",
+        "total": 121,
+        "work": 31,
+        "wait": 79,
+        "date_shipment": "2024-09-29",
+        "first_order_time_delivery": "10:00:00",
+        "time_unloading": 40,
+        "type_delivery": "withInterval",
+        "time_interval_client": 25,
+        "axle": 6,
+        "gidrolotok": false,
+        "mixers": [
+            2,
+            4
+        ],
+        "vehicles": [
+            5
+        ],
+        "delivery_address_id": 1
+    },
+    {
+        "id": 7,
+        "good_id": 20,
+        "good_mix_time": [
+            {
+                "mixer_id": 1,
+                "mix_time": 124
+            },
+            {
+                "mixer_id": 2,
+                "mix_time": 57
+            },
+            {
+                "mixer_id": 3,
+                "mix_time": 128
+            },
+            {
+                "mixer_id": 4,
+                "mix_time": 69
+            }
+        ],
+        "status": "new",
+        "total": 79,
+        "work": 29,
+        "wait": 26,
+        "date_shipment": "2024-10-01",
+        "first_order_time_delivery": "11:00:00",
+        "time_unloading": 23,
+        "type_delivery": "withInterval",
+        "time_interval_client": 20,
+        "axle": 4,
+        "gidrolotok": true,
+        "mixers": [
+            3,
+            4,
+            2
+        ],
+        "vehicles": [
+            5
+        ],
+        "delivery_address_id": 1
+    },
+    {
+        "id": 8,
+        "good_id": 16,
+        "good_mix_time": [
+            {
+                "mixer_id": 1,
+                "mix_time": 128
+            },
+            {
+                "mixer_id": 2,
+                "mix_time": 149
+            },
+            {
+                "mixer_id": 3,
+                "mix_time": 110
+            },
+            {
+                "mixer_id": 4,
+                "mix_time": 95
+            }
+        ],
+        "status": "new",
+        "total": 63,
+        "work": 14,
+        "wait": 114,
+        "date_shipment": "2024-09-23",
+        "first_order_time_delivery": "10:00:00",
+        "time_unloading": 22,
+        "type_delivery": "withInterval",
+        "time_interval_client": 60,
+        "axle": 6,
+        "gidrolotok": true,
+        "mixers": [
+            4,
+            2,
+            3
+        ],
+        "vehicles": [
+            7,
+            4,
+            9
+        ],
+        "delivery_address_id": 2
+    },
+    {
+        "id": 9,
+        "good_id": 12,
+        "good_mix_time": [
+            {
+                "mixer_id": 1,
+                "mix_time": 46
+            },
+            {
+                "mixer_id": 2,
+                "mix_time": 77
+            },
+            {
+                "mixer_id": 3,
+                "mix_time": 103
+            },
+            {
+                "mixer_id": 4,
+                "mix_time": 114
+            }
+        ],
+        "status": "work",
+        "total": 68,
+        "work": 0,
+        "wait": 52,
+        "date_shipment": "2024-09-30",
+        "first_order_time_delivery": "11:00:00",
+        "time_unloading": 25,
+        "type_delivery": "withInterval",
+        "time_interval_client": 36,
+        "axle": 6,
+        "gidrolotok": true,
+        "mixers": [
+            2,
+            4,
+            3,
+            1
+        ],
+        "vehicles": [
+            12,
+            3,
+            10
+        ],
+        "delivery_address_id": 1
+    },
+    {
+        "id": 10,
+        "good_id": 15,
+        "good_mix_time": [
+            {
+                "mixer_id": 1,
+                "mix_time": 83
+            },
+            {
+                "mixer_id": 2,
+                "mix_time": 42
+            },
+            {
+                "mixer_id": 3,
+                "mix_time": 52
+            },
+            {
+                "mixer_id": 4,
+                "mix_time": 71
+            }
+        ],
+        "status": "new",
+        "total": 192,
+        "work": 38,
+        "wait": 132,
+        "date_shipment": "2024-09-27",
+        "first_order_time_delivery": "11:00:00",
+        "time_unloading": 50,
+        "type_delivery": "withInterval",
+        "time_interval_client": 52,
+        "axle": 4,
+        "gidrolotok": false,
+        "mixers": [
+            2
+        ],
+        "vehicles": [
+            11
+        ],
+        "delivery_address_id": 1
+    }
+]
