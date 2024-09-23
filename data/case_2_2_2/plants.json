@@ -1,0 +1,16 @@
+[
+    {
+        "id": 1,
+        "latitude": 57.379405,
+        "longitude": 52.55545,
+        "work_time_start": "09:00:00",
+        "work_time_end": "18:00:00"
+    },
+    {
+        "id": 2,
+        "latitude": 57.768058,
+        "longitude": 51.954319,
+        "work_time_start": "09:00:00",
+        "work_time_end": "18:00:00"
+    }
+]
