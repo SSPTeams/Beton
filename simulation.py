@@ -170,7 +170,7 @@ class Scheduler:
         return self.metrics
 
     def score(self):
-        return -self.metrics["Undelivered Volume"]
+        return -self.metrics["Undelivered Volume"], -self.metrics["Plan time delta"]
 
 
 
