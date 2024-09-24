@@ -34,7 +34,7 @@
                 "first_order_time_delivery": "10:00:00",
                 "time_unloading": 21,
                 "type_delivery": "withInterval",
-                "time_interval_client": 55,
+                "time_interval_client": 25,
                 "axle": 4,
                 "gidrolotok": false,
                 "plants": [
