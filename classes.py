@@ -49,7 +49,7 @@ class Plant:
 
 
 class Vehicle:
-    def __init__(self, id, number, volume, rent, gidrolotok, axes, work_time_start, work_time_end, plants, schedule=None):
+    def __init__(self, id, number, volume, rent, gidrolotok, axes, work_time_start, work_time_end, plants, plant_start, schedule=None):
         self.id = id
         self.number = number
         self.volume = volume
@@ -60,6 +60,7 @@ class Vehicle:
         self.work_time_end = datetime.combine(datetime.today(), datetime.strptime(work_time_end, '%H:%M:%S').time())
         self.plants = plants
         self.schedule = schedule if schedule is not None else []
+        self.plant_start = plant_start
 
     def is_available(self, trip):
         """
@@ -78,12 +79,12 @@ class Vehicle:
         plant_intervals = []
         if len(self.schedule) == 0:
             intervals = [(self.work_time_start, self.work_time_end)]
-            plant_intervals = [(None, None)]
+            plant_intervals = [(self.plant_start, None)]
         else:
             for i, tr in enumerate(self.schedule):
                 if i == 0:
                     intervals.append((self.work_time_start, tr.start_at))
-                    plant_intervals.append((None, self.schedule[i].plant_id))
+                    plant_intervals.append((self.plant_start, self.schedule[i].plant_id))
                 else:
                     intervals.append((self.schedule[i - 1].return_at, tr.start_at))
                     plant_intervals.append((self.schedule[i - 1].return_plant_id, self.schedule[i].plant_id))
@@ -140,13 +141,14 @@ class Order:
 
 
 class Trip:
-    def __init__(self, order_id, plant_id, vehicle_id,
+    def __init__(self, order_id, plant_id, delivery_address_id, vehicle_id,
                  confirm, total, start_at, load_at, arrive_at, unload_at,
                  return_at, status, return_plant_id, plan_date_start,
                  plan_date_object, plan_date_done):
         self.id = f"{order_id}_{arrive_at}"
         self.order_id = order_id
         self.plant_id = plant_id
+        self.delivery_address_id = delivery_address_id
         self.vehicle_id = vehicle_id
         self.confirm = confirm
         self.total = total
@@ -186,6 +188,6 @@ class Trip:
             "status": self.status,
             "return_plant_id": self.return_plant_id,
             "plan_date_start": self.plan_date_start,
-            "plan_date_object": self.plan_date_object,
+            "plan_date_object": self.plan_date_object.strftime('%Y-%m-%d %H:%M:%S'),
             "plan_date_done": self.plan_date_done
         }

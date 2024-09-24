@@ -2,21 +2,21 @@
     {
         "plant_id": 1,
         "customer_id": 1,
-        "travel_time_minutes": 38
+        "travel_time_minutes": 17
     },
     {
         "plant_id": 1,
         "customer_id": 2,
-        "travel_time_minutes": 34
+        "travel_time_minutes": 29
     },
     {
         "plant_id": 2,
         "customer_id": 1,
-        "travel_time_minutes": 15
+        "travel_time_minutes": 38
     },
     {
         "plant_id": 2,
         "customer_id": 2,
-        "travel_time_minutes": 24
+        "travel_time_minutes": 28
     }
 ]

@@ -1,6 +1,8 @@
 # simulation.py
 
 import copy
+import random
+
 from classes import Plant, Vehicle, Customer, Order, Trip
 
 
@@ -28,6 +30,7 @@ class Scheduler:
             self.customer_delivery_queue.append(Trip(
                 order_id=order.id,
                 plant_id=None,
+                delivery_address_id=order.delivery_address_id,
                 vehicle_id=None,
                 confirm=False,
                 total=None,
@@ -46,6 +49,9 @@ class Scheduler:
         self.assigned_trips = []
         self.failed_trips = []
         self.metrics = None
+
+    def get_trip_distance(self, trip):
+        return self.travel_times[(trip.plant_id, trip.delivery_address_id)] + self.travel_times[(trip.return_plant_id, trip.delivery_address_id)]
 
     def simulate(self):
         def get_first_trip(trips):
@@ -74,6 +80,7 @@ class Scheduler:
                     self.customer_delivery_queue.append(Trip(
                         order_id=order.id,
                         plant_id=None,
+                        delivery_address_id=order.delivery_address_id,
                         vehicle_id=None,
                         confirm=False,
                         total=None,
@@ -97,17 +104,30 @@ class Scheduler:
         return self.travel_times[(start, end)]
 
     def get_best_trip(self, trips):
-        # TODO
-        return trips[0]
+        travel_times = [self.get_trip_distance(trip) for trip in trips]
+        # randomly choose one of the best trips based on the minimum travel time (using probs)
+        probs = [1 / len(travel_times)**2 for _ in range(len(travel_times))]
+        best_trip = random.choices(trips, weights=probs)[0]
+        return best_trip
 
     def assign_trip(self, trip):
         suitable_trips = []
 
+        plants_slots = {}
+        for plant in self.plants.values():
+            plants_slots[plant.id] = plant.get_first_available_slot(trip.arrive_at)
+
+        '''
+        for pfr_id, plant_from in self.plants.items():
+            available_vehicle_ids = [vehicle for v_id, vehicle in self.vehicles.items() if vehicle.is_available(trip)]
+        '''
+
+        trip_variant = copy.deepcopy(trip)
         for v_id, vehicle in self.vehicles.items():
             for pto_id, plant_from in self.plants.items():
                 for pfr_id, plant_to in self.plants.items():
-                    trip_variant = copy.deepcopy(trip)
                     trip_variant.plant_id = plant_from.id
+                    trip_variant.arrive_at = trip.arrive_at
                     trip_variant.vehicle_id = vehicle.id
                     trip_variant.return_plant_id = plant_to.id
                     trip_variant.total = min(vehicle.volume, self.orders[trip.order_id].total)
@@ -116,6 +136,7 @@ class Scheduler:
                     trip_variant.start_at = trip_variant.load_at - self.plants[plant_from.id].loading_time
                     trip_variant.unload_at = trip_variant.load_at + self.orders[trip.order_id].time_unloading
                     trip_variant.return_at = trip_variant.unload_at + self.get_travel_time(start=self.orders[trip.order_id].delivery_address_id, end=plant_to.id)
+                    trip_variant.plan_date_object = trip_variant.arrive_at
 
                     plant_slot_variant = plant_from.get_first_available_slot(trip_variant.start_at)
                     if plant_slot_variant is None:
@@ -125,7 +146,7 @@ class Scheduler:
                     trip_variant.shift(time_shift)
 
                     if vehicle.is_available(trip_variant):
-                        suitable_trips.append(trip_variant)
+                        suitable_trips.append(copy.deepcopy(trip_variant))
 
         if not suitable_trips:
             return None, "No suitable trips"
@@ -140,6 +161,11 @@ class Scheduler:
     def calculate_metrics(self):
         self.metrics = {
             "Undelivered Volume": sum([order.total for order in self.orders.values()]),
+            "Plan time delta": sum(
+                                    abs((trip.arrive_at - trip.plan_date_object).total_seconds()) / 60
+                                    for trip in self.assigned_trips
+                                    if trip.arrive_at and trip.plan_date_object
+                                ),
         }
         return self.metrics
 

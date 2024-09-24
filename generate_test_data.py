@@ -24,6 +24,7 @@ def generate_plants(num_plants=2):
 def generate_vehicles(num_vehicles, plants):
     vehicles = []
     for i in range(1, num_vehicles + 1):
+        plants_work_with = random.sample([plant['id'] for plant in plants], k=random.randint(1, len(plants)))
         vehicle = {
             "id": i,
             "number": f"H{random.randint(100,999)}KK{random.randint(100,999)}",
@@ -33,7 +34,8 @@ def generate_vehicles(num_vehicles, plants):
             "axes": random.choice([4, 6]),
             "work_time_start": "09:00:00",
             "work_time_end": "18:00:00",
-            "plants": random.sample([plant['id'] for plant in plants], k=random.randint(1, len(plants)))
+            "plants": plants_work_with,
+            "plant_start": random.choice(plants_work_with)
         }
         vehicles.append(vehicle)
     return vehicles

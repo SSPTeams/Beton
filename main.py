@@ -37,7 +37,8 @@ def create_vehicles(vehicles_data):
             axes=vehicle['axes'],
             work_time_start=vehicle['work_time_start'],
             work_time_end=vehicle['work_time_end'],
-            plants=vehicle['plants']
+            plants=vehicle['plants'],
+            plant_start=vehicle['plant_start']
         )
         vehicles.append(v)
     return vehicles
@@ -103,7 +104,7 @@ def main():
 
     best_metric = None
     best_result = None
-    for _ in range(2):
+    for _ in range(30):
         # Создание объекта Scheduler и запуск симуляции
         scheduler = Scheduler(plants=plants, vehicles=vehicles, customers=customers, travel_times=travel_times)
         scheduler.simulate()
@@ -113,11 +114,12 @@ def main():
             best_result = copy.deepcopy(scheduler)
 
     with open(f'data/{case_name}/results.json', 'w', encoding='utf-8') as f:
-        json.dump({
+        obj_to_dump = {
             "assigned_trips": [trip.to_dict() for trip in best_result.assigned_trips],
-            "failed_trips": [trip.to_dict() for trip in best_result.failed_trips],
+            "failed_trips": best_result.failed_trips,
             "metrics": best_result.metrics
-        }, f, ensure_ascii=False, indent=4)
+        }
+        json.dump(obj_to_dump, f, ensure_ascii=False, indent=4)
 
     # Вывод метрик симуляции
     print("\nSimulation Metrics:")
