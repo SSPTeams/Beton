@@ -6,6 +6,7 @@ from classes import Plant, Vehicle, Customer, Order
 from simulation import Scheduler
 import cProfile
 
+
 def load_json_data(file_path):
     with open(file_path, 'r', encoding='utf-8') as f:
         return json.load(f)
@@ -16,6 +17,7 @@ def create_plants(plants_data):
     for plant in plants_data:
         p = Plant(
             id=plant['id'],
+            factory_id=plant['factory_id'],
             latitude=plant['latitude'],
             longitude=plant['longitude'],
             work_time_start=plant['work_time_start'],
@@ -37,8 +39,8 @@ def create_vehicles(vehicles_data):
             axes=vehicle['axes'],
             work_time_start=vehicle['work_time_start'],
             work_time_end=vehicle['work_time_end'],
-            plants=vehicle['plants'],
-            plant_start=vehicle['plant_start']
+            factories=vehicle['factories'],
+            factory_start=vehicle['factory_start']
         )
         vehicles.append(v)
     return vehicles
@@ -104,7 +106,7 @@ def main():
 
     best_metric = None
     best_result = None
-    for _ in range(30):
+    for _ in range(5):
         # Создание объекта Scheduler и запуск симуляции
         scheduler = Scheduler(plants=plants, vehicles=vehicles, customers=customers, travel_times=travel_times)
         scheduler.simulate()

@@ -7,24 +7,27 @@ from datetime import datetime, timedelta
 order_counter = 0
 
 
-def generate_plants(num_plants=2):
+def generate_plants(num_factories=2, plants_per_address=2):
     plants = []
-    for pid in range(1, num_plants+1):
-        plant = {
-            "id": pid,
-            "latitude": round(random.uniform(55.0, 60.0), 6),
-            "longitude": round(random.uniform(50.0, 60.0), 6),
-            "work_time_start": "09:00:00",
-            "work_time_end": "18:00:00"
-        }
-        plants.append(plant)
+    for factory_id in range(1, num_factories + 1):
+        for pid in range(1, plants_per_address+1):
+            plant = {
+                "id": (factory_id-1) * plants_per_address + pid,
+                "latitude": round(random.uniform(55.0, 60.0), 6),
+                "longitude": round(random.uniform(50.0, 60.0), 6),
+                "work_time_start": "09:00:00",
+                "work_time_end": "18:00:00",
+                "factory_id": factory_id,
+            }
+            plants.append(plant)
     return plants
 
 
 def generate_vehicles(num_vehicles, plants):
     vehicles = []
     for i in range(1, num_vehicles + 1):
-        plants_work_with = random.sample([plant['id'] for plant in plants], k=random.randint(1, len(plants)))
+        factories = list(set([plant["factory_id"] for plant in plants]))
+        factories_work_with = random.sample(factories, k=random.randint(1, len(factories)))
         vehicle = {
             "id": i,
             "number": f"H{random.randint(100,999)}KK{random.randint(100,999)}",
@@ -34,8 +37,8 @@ def generate_vehicles(num_vehicles, plants):
             "axes": random.choice([4, 6]),
             "work_time_start": "09:00:00",
             "work_time_end": "18:00:00",
-            "plants": plants_work_with,
-            "plant_start": random.choice(plants_work_with)
+            "factories": factories_work_with,
+            "factory_start": random.choice(factories_work_with)
         }
         vehicles.append(vehicle)
     return vehicles
@@ -48,11 +51,11 @@ def generate_customer_orders(customer_id, num_orders, plants):
         order = {
             "id": order_counter,
             "status": "new",
-            "total": random.randint(50, 200),
+            "total": 100,
             "date_shipment": datetime.today().strftime('%Y-%m-%d'),
             "first_order_time_delivery": random.choice(["09:00:00", "10:00:00", "11:00:00"]),
             "time_unloading": random.randint(20, 60),
-            "type_delivery": "withInterval",
+            "type_delivery": random.choice(["withInterval", "withoutInterval"]),
             "time_interval_client": random.randint(15, 60),
             "axle": random.choice([4, 6]),
             "gidrolotok": random.choice([True, False]),
@@ -64,13 +67,13 @@ def generate_customer_orders(customer_id, num_orders, plants):
     return orders
 
 
-def generate_customers(num_customers, plants):
+def generate_customers(num_customers, plants, num_orders=1):
     customers = []
     for i in range(1, num_customers + 1):
         customer = {
             "id": i,
             "delivery_address_id": i,
-            "orders": generate_customer_orders(customer_id=i, num_orders=1, plants=plants)
+            "orders": generate_customer_orders(customer_id=i, num_orders=num_orders, plants=plants)
         }
         customers.append(customer)
     return customers
@@ -78,9 +81,11 @@ def generate_customers(num_customers, plants):
 
 def generate_travel_times(plants, customers):
     travel_times = []
+    mem = {}
     for plant in plants:
         for customer in customers:
-            travel_time = random.randint(15, 45)
+            travel_time = mem.get((plant['factory_id'], customer['id']), random.randint(10, 45))
+            mem[(plant['factory_id'], customer['id'])] = travel_time
             travel_time_entry = {
                 "plant_id": plant['id'],
                 "customer_id": customer["id"],
@@ -100,9 +105,9 @@ def main():
     with open(f'data/{case_name}/config.json', 'r') as f:
         config = json.load(f)
 
-    plants = generate_plants(num_plants=config['num_plants'])
+    plants = generate_plants(num_factories=config['num_factories'], plants_per_address=config['plants_per_address'])
     vehicles = generate_vehicles(num_vehicles=config['num_vehicles'], plants=plants)
-    customers = generate_customers(num_customers=config['num_customers'], plants=plants)
+    customers = generate_customers(num_customers=config['num_customers'], plants=plants, num_orders=config['num_orders'])
     travel_times = generate_travel_times(plants, customers)
 
 

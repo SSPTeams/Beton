@@ -2,6 +2,6 @@
   "num_factories": 2,
   "plants_per_address": 2,
   "num_vehicles": 15,
-  "num_orders": 1,
+  "num_orders": 5,
   "num_customers": 2
 }
