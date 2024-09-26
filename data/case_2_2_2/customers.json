@@ -6,17 +6,16 @@
             {
                 "id": 0,
                 "status": "new",
-                "total": 77,
-                "date_shipment": "2024-09-25",
-                "first_order_time_delivery": "11:00:00",
-                "time_unloading": 26,
+                "total": 85,
+                "date_shipment": "2024-09-26",
+                "first_order_time_delivery": "10:00:00",
+                "time_unloading": 48,
                 "type_delivery": "withInterval",
-                "time_interval_client": 19,
+                "time_interval_client": 15,
                 "axle": 6,
-                "gidrolotok": true,
+                "gidrolotok": false,
                 "plants": [
-                    2,
-                    1
+                    2
                 ],
                 "delivery_address_id": 1
             }
@@ -29,16 +28,15 @@
             {
                 "id": 1,
                 "status": "new",
-                "total": 119,
-                "date_shipment": "2024-09-25",
+                "total": 83,
+                "date_shipment": "2024-09-26",
                 "first_order_time_delivery": "10:00:00",
-                "time_unloading": 21,
+                "time_unloading": 26,
                 "type_delivery": "withInterval",
-                "time_interval_client": 25,
-                "axle": 4,
-                "gidrolotok": false,
+                "time_interval_client": 17,
+                "axle": 6,
+                "gidrolotok": true,
                 "plants": [
-                    2,
                     1
                 ],
                 "delivery_address_id": 2

@@ -1,15 +1,15 @@
 [
     {
         "id": 1,
-        "latitude": 59.74391,
-        "longitude": 52.931898,
+        "latitude": 58.058968,
+        "longitude": 52.432014,
         "work_time_start": "09:00:00",
         "work_time_end": "18:00:00"
     },
     {
         "id": 2,
-        "latitude": 56.098532,
-        "longitude": 54.058564,
+        "latitude": 59.943043,
+        "longitude": 58.076261,
         "work_time_start": "09:00:00",
         "work_time_end": "18:00:00"
     }

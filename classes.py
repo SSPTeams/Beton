@@ -43,7 +43,7 @@ class Plant:
         return None
 
     def reserve_loading_slot(self, trip):
-        start = trip.load_at
+        start = trip.start_at
         end = start + self.loading_time
         self.loading_schedule[trip.id] = {'start': start, 'end': end}
 

@@ -113,15 +113,6 @@ class Scheduler:
     def assign_trip(self, trip):
         suitable_trips = []
 
-        plants_slots = {}
-        for plant in self.plants.values():
-            plants_slots[plant.id] = plant.get_first_available_slot(trip.arrive_at)
-
-        '''
-        for pfr_id, plant_from in self.plants.items():
-            available_vehicle_ids = [vehicle for v_id, vehicle in self.vehicles.items() if vehicle.is_available(trip)]
-        '''
-
         trip_variant = copy.deepcopy(trip)
         for v_id, vehicle in self.vehicles.items():
             for pto_id, plant_from in self.plants.items():
@@ -134,7 +125,7 @@ class Scheduler:
 
                     trip_variant.load_at = trip_variant.arrive_at - self.get_travel_time(start=plant_from.id, end=self.orders[trip.order_id].delivery_address_id)
                     trip_variant.start_at = trip_variant.load_at - self.plants[plant_from.id].loading_time
-                    trip_variant.unload_at = trip_variant.load_at + self.orders[trip.order_id].time_unloading
+                    trip_variant.unload_at = trip_variant.arrive_at + self.orders[trip.order_id].time_unloading
                     trip_variant.return_at = trip_variant.unload_at + self.get_travel_time(start=self.orders[trip.order_id].delivery_address_id, end=plant_to.id)
                     trip_variant.plan_date_object = trip_variant.arrive_at
 
