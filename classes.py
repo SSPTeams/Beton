@@ -95,7 +95,7 @@ class Vehicle:
             start, end = interval
             plant_start, plant_end = plant_intervals[i]
 
-            if (start <= trip.start_at) and (trip.return_at <= end) and (equal_plants(plant_start, trip.plant_id) and equal_plants(trip.return_plant_id, plant_end)):
+            if (start <= trip.start_at) and (trip.return_at <= end) and (equal_plants(plant_start, trip.factory_id) and equal_plants(trip.return_factory_id, plant_end)):
                 return True
 
         return False

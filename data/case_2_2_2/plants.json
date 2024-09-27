@@ -1,32 +1,32 @@
 [
     {
         "id": 1,
-        "latitude": 56.348176,
-        "longitude": 54.715844,
+        "latitude": 59.80905,
+        "longitude": 53.466333,
         "work_time_start": "09:00:00",
         "work_time_end": "18:00:00",
         "factory_id": 1
     },
     {
         "id": 2,
-        "latitude": 57.666921,
-        "longitude": 55.799548,
+        "latitude": 59.726673,
+        "longitude": 52.128232,
         "work_time_start": "09:00:00",
         "work_time_end": "18:00:00",
         "factory_id": 1
     },
     {
         "id": 3,
-        "latitude": 59.034261,
-        "longitude": 55.400064,
+        "latitude": 56.813806,
+        "longitude": 55.605799,
         "work_time_start": "09:00:00",
         "work_time_end": "18:00:00",
         "factory_id": 2
     },
     {
         "id": 4,
-        "latitude": 55.859842,
-        "longitude": 51.275254,
+        "latitude": 55.16522,
+        "longitude": 57.9856,
         "work_time_start": "09:00:00",
         "work_time_end": "18:00:00",
         "factory_id": 2

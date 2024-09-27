@@ -129,6 +129,9 @@ class Scheduler:
 
         trip_variant = copy.deepcopy(trip)
         for v_id, vehicle in self.vehicles.items():
+            if random.random() < 0.5:
+                continue
+
             for pto_id, plant_from in self.plants.items():
                 for pfrom_id, plant_to in self.plants.items():
                     trip_variant.plant_id = plant_from.id
