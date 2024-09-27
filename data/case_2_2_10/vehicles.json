@@ -1,68 +1,67 @@
 [
     {
         "id": 1,
-        "number": "H346KK178",
-        "volume": 12,
+        "number": "H359KK377",
+        "volume": 8,
+        "rent": false,
+        "gidrolotok": false,
+        "axes": 4,
+        "work_time_start": "09:00:00",
+        "work_time_end": "18:00:00",
+        "factories": [
+            2
+        ],
+        "factory_start": 2
+    },
+    {
+        "id": 2,
+        "number": "H751KK427",
+        "volume": 8,
         "rent": false,
         "gidrolotok": true,
+        "axes": 4,
+        "work_time_start": "09:00:00",
+        "work_time_end": "18:00:00",
+        "factories": [
+            2
+        ],
+        "factory_start": 2
+    },
+    {
+        "id": 3,
+        "number": "H692KK991",
+        "volume": 10,
+        "rent": false,
+        "gidrolotok": false,
         "axes": 6,
+        "work_time_start": "09:00:00",
+        "work_time_end": "18:00:00",
+        "factories": [
+            1
+        ],
+        "factory_start": 1
+    },
+    {
+        "id": 4,
+        "number": "H775KK310",
+        "volume": 8,
+        "rent": false,
+        "gidrolotok": false,
+        "axes": 4,
         "work_time_start": "09:00:00",
         "work_time_end": "18:00:00",
         "factories": [
             2,
             1
         ],
-        "factory_start": 2
-    },
-    {
-        "id": 2,
-        "number": "H539KK491",
-        "volume": 12,
-        "rent": true,
-        "gidrolotok": true,
-        "axes": 4,
-        "work_time_start": "09:00:00",
-        "work_time_end": "18:00:00",
-        "factories": [
-            1
-        ],
-        "factory_start": 1
-    },
-    {
-        "id": 3,
-        "number": "H704KK116",
-        "volume": 10,
-        "rent": true,
-        "gidrolotok": false,
-        "axes": 4,
-        "work_time_start": "09:00:00",
-        "work_time_end": "18:00:00",
-        "factories": [
-            1,
-            2
-        ],
-        "factory_start": 2
-    },
-    {
-        "id": 4,
-        "number": "H420KK939",
-        "volume": 12,
-        "rent": true,
-        "gidrolotok": false,
-        "axes": 6,
-        "work_time_start": "09:00:00",
-        "work_time_end": "18:00:00",
-        "factories": [
-            1
-        ],
         "factory_start": 1
     },
     {
         "id": 5,
-        "number": "H887KK130",
+        "number": "H736KK889",
         "volume": 8,
-        "rent": false,
-        "gidrolotok": true,
+        "rent": true,
+        "gidrolotok": false,
         "axes": 4,
         "work_time_start": "09:00:00",
         "work_time_end": "18:00:00",
@@ -74,7 +73,7 @@
     },
     {
         "id": 6,
-        "number": "H751KK823",
+        "number": "H517KK348",
         "volume": 12,
         "rent": false,
         "gidrolotok": true,
@@ -88,22 +87,21 @@
     },
     {
         "id": 7,
-        "number": "H637KK424",
+        "number": "H307KK286",
         "volume": 12,
-        "rent": false,
-        "gidrolotok": true,
-        "axes": 4,
+        "rent": true,
+        "gidrolotok": false,
+        "axes": 6,
         "work_time_start": "09:00:00",
         "work_time_end": "18:00:00",
         "factories": [
-            2,
-            1
+            2
         ],
-        "factory_start": 1
+        "factory_start": 2
     },
     {
         "id": 8,
-        "number": "H232KK106",
+        "number": "H969KK264",
         "volume": 8,
         "rent": false,
         "gidrolotok": false,
@@ -111,28 +109,28 @@
         "work_time_start": "09:00:00",
         "work_time_end": "18:00:00",
         "factories": [
+            2,
             1
         ],
-        "factory_start": 1
+        "factory_start": 2
     },
     {
         "id": 9,
-        "number": "H340KK835",
-        "volume": 8,
+        "number": "H551KK613",
+        "volume": 12,
         "rent": false,
-        "gidrolotok": true,
+        "gidrolotok": false,
         "axes": 4,
         "work_time_start": "09:00:00",
         "work_time_end": "18:00:00",
         "factories": [
-            1,
             2
         ],
-        "factory_start": 1
+        "factory_start": 2
     },
     {
         "id": 10,
-        "number": "H750KK551",
+        "number": "H167KK273",
         "volume": 12,
         "rent": true,
         "gidrolotok": true,
@@ -140,31 +138,17 @@
         "work_time_start": "09:00:00",
         "work_time_end": "18:00:00",
         "factories": [
+            2,
             1
-        ],
-        "factory_start": 1
-    },
-    {
-        "id": 11,
-        "number": "H205KK170",
-        "volume": 12,
-        "rent": false,
-        "gidrolotok": true,
-        "axes": 4,
-        "work_time_start": "09:00:00",
-        "work_time_end": "18:00:00",
-        "factories": [
-            1,
-            2
         ],
         "factory_start": 2
     },
     {
-        "id": 12,
-        "number": "H400KK673",
-        "volume": 12,
-        "rent": false,
-        "gidrolotok": false,
+        "id": 11,
+        "number": "H544KK479",
+        "volume": 8,
+        "rent": true,
+        "gidrolotok": true,
         "axes": 6,
         "work_time_start": "09:00:00",
         "work_time_end": "18:00:00",
@@ -172,74 +156,43 @@
             2,
             1
         ],
-        "factory_start": 2
+        "factory_start": 1
+    },
+    {
+        "id": 12,
+        "number": "H563KK260",
+        "volume": 10,
+        "rent": true,
+        "gidrolotok": false,
+        "axes": 6,
+        "work_time_start": "09:00:00",
+        "work_time_end": "18:00:00",
+        "factories": [
+            1
+        ],
+        "factory_start": 1
     },
     {
         "id": 13,
-        "number": "H627KK227",
+        "number": "H225KK920",
         "volume": 12,
-        "rent": false,
-        "gidrolotok": true,
+        "rent": true,
+        "gidrolotok": false,
         "axes": 4,
         "work_time_start": "09:00:00",
         "work_time_end": "18:00:00",
         "factories": [
-            1,
-            2
+            1
         ],
         "factory_start": 1
     },
     {
         "id": 14,
-        "number": "H924KK809",
+        "number": "H850KK573",
         "volume": 10,
         "rent": true,
         "gidrolotok": true,
         "axes": 4,
-        "work_time_start": "09:00:00",
-        "work_time_end": "18:00:00",
-        "factories": [
-            2
-        ],
-        "factory_start": 2
-    },
-    {
-        "id": 15,
-        "number": "H842KK717",
-        "volume": 8,
-        "rent": true,
-        "gidrolotok": false,
-        "axes": 4,
-        "work_time_start": "09:00:00",
-        "work_time_end": "18:00:00",
-        "factories": [
-            2,
-            1
-        ],
-        "factory_start": 2
-    },
-    {
-        "id": 16,
-        "number": "H320KK400",
-        "volume": 10,
-        "rent": false,
-        "gidrolotok": false,
-        "axes": 6,
-        "work_time_start": "09:00:00",
-        "work_time_end": "18:00:00",
-        "factories": [
-            2,
-            1
-        ],
-        "factory_start": 2
-    },
-    {
-        "id": 17,
-        "number": "H504KK446",
-        "volume": 8,
-        "rent": true,
-        "gidrolotok": false,
-        "axes": 6,
         "work_time_start": "09:00:00",
         "work_time_end": "18:00:00",
         "factories": [
@@ -248,11 +201,56 @@
         "factory_start": 1
     },
     {
-        "id": 18,
-        "number": "H207KK277",
+        "id": 15,
+        "number": "H237KK576",
+        "volume": 8,
+        "rent": true,
+        "gidrolotok": true,
+        "axes": 6,
+        "work_time_start": "09:00:00",
+        "work_time_end": "18:00:00",
+        "factories": [
+            1,
+            2
+        ],
+        "factory_start": 1
+    },
+    {
+        "id": 16,
+        "number": "H477KK763",
         "volume": 10,
         "rent": true,
         "gidrolotok": false,
+        "axes": 4,
+        "work_time_start": "09:00:00",
+        "work_time_end": "18:00:00",
+        "factories": [
+            1,
+            2
+        ],
+        "factory_start": 2
+    },
+    {
+        "id": 17,
+        "number": "H322KK413",
+        "volume": 8,
+        "rent": false,
+        "gidrolotok": false,
+        "axes": 6,
+        "work_time_start": "09:00:00",
+        "work_time_end": "18:00:00",
+        "factories": [
+            1,
+            2
+        ],
+        "factory_start": 1
+    },
+    {
+        "id": 18,
+        "number": "H118KK282",
+        "volume": 10,
+        "rent": true,
+        "gidrolotok": true,
         "axes": 6,
         "work_time_start": "09:00:00",
         "work_time_end": "18:00:00",
@@ -264,8 +262,81 @@
     },
     {
         "id": 19,
-        "number": "H609KK147",
+        "number": "H547KK143",
+        "volume": 12,
+        "rent": false,
+        "gidrolotok": true,
+        "axes": 4,
+        "work_time_start": "09:00:00",
+        "work_time_end": "18:00:00",
+        "factories": [
+            1,
+            2
+        ],
+        "factory_start": 2
+    },
+    {
+        "id": 20,
+        "number": "H570KK510",
         "volume": 10,
+        "rent": true,
+        "gidrolotok": false,
+        "axes": 4,
+        "work_time_start": "09:00:00",
+        "work_time_end": "18:00:00",
+        "factories": [
+            1
+        ],
+        "factory_start": 1
+    },
+    {
+        "id": 21,
+        "number": "H903KK139",
+        "volume": 10,
+        "rent": false,
+        "gidrolotok": false,
+        "axes": 6,
+        "work_time_start": "09:00:00",
+        "work_time_end": "18:00:00",
+        "factories": [
+            2,
+            1
+        ],
+        "factory_start": 1
+    },
+    {
+        "id": 22,
+        "number": "H159KK674",
+        "volume": 10,
+        "rent": true,
+        "gidrolotok": true,
+        "axes": 4,
+        "work_time_start": "09:00:00",
+        "work_time_end": "18:00:00",
+        "factories": [
+            1,
+            2
+        ],
+        "factory_start": 2
+    },
+    {
+        "id": 23,
+        "number": "H406KK902",
+        "volume": 10,
+        "rent": true,
+        "gidrolotok": false,
+        "axes": 6,
+        "work_time_start": "09:00:00",
+        "work_time_end": "18:00:00",
+        "factories": [
+            2
+        ],
+        "factory_start": 2
+    },
+    {
+        "id": 24,
+        "number": "H315KK123",
+        "volume": 12,
         "rent": false,
         "gidrolotok": false,
         "axes": 4,
@@ -277,83 +348,11 @@
         "factory_start": 1
     },
     {
-        "id": 20,
-        "number": "H162KK829",
-        "volume": 10,
-        "rent": true,
-        "gidrolotok": false,
-        "axes": 4,
-        "work_time_start": "09:00:00",
-        "work_time_end": "18:00:00",
-        "factories": [
-            1,
-            2
-        ],
-        "factory_start": 1
-    },
-    {
-        "id": 21,
-        "number": "H193KK869",
-        "volume": 8,
-        "rent": true,
-        "gidrolotok": false,
-        "axes": 4,
-        "work_time_start": "09:00:00",
-        "work_time_end": "18:00:00",
-        "factories": [
-            1,
-            2
-        ],
-        "factory_start": 2
-    },
-    {
-        "id": 22,
-        "number": "H226KK794",
-        "volume": 12,
-        "rent": true,
-        "gidrolotok": false,
-        "axes": 4,
-        "work_time_start": "09:00:00",
-        "work_time_end": "18:00:00",
-        "factories": [
-            1
-        ],
-        "factory_start": 1
-    },
-    {
-        "id": 23,
-        "number": "H441KK734",
-        "volume": 10,
-        "rent": true,
-        "gidrolotok": true,
-        "axes": 4,
-        "work_time_start": "09:00:00",
-        "work_time_end": "18:00:00",
-        "factories": [
-            2
-        ],
-        "factory_start": 2
-    },
-    {
-        "id": 24,
-        "number": "H797KK747",
-        "volume": 8,
-        "rent": true,
-        "gidrolotok": true,
-        "axes": 6,
-        "work_time_start": "09:00:00",
-        "work_time_end": "18:00:00",
-        "factories": [
-            2
-        ],
-        "factory_start": 2
-    },
-    {
         "id": 25,
-        "number": "H101KK684",
+        "number": "H964KK478",
         "volume": 12,
-        "rent": true,
-        "gidrolotok": false,
+        "rent": false,
+        "gidrolotok": true,
         "axes": 6,
         "work_time_start": "09:00:00",
         "work_time_end": "18:00:00",
@@ -365,22 +364,22 @@
     },
     {
         "id": 26,
-        "number": "H883KK720",
-        "volume": 10,
-        "rent": true,
+        "number": "H550KK710",
+        "volume": 8,
+        "rent": false,
         "gidrolotok": false,
-        "axes": 6,
+        "axes": 4,
         "work_time_start": "09:00:00",
         "work_time_end": "18:00:00",
         "factories": [
-            1,
-            2
+            2,
+            1
         ],
         "factory_start": 1
     },
     {
         "id": 27,
-        "number": "H635KK745",
+        "number": "H901KK785",
         "volume": 8,
         "rent": true,
         "gidrolotok": false,
@@ -395,11 +394,11 @@
     },
     {
         "id": 28,
-        "number": "H241KK748",
-        "volume": 10,
-        "rent": false,
-        "gidrolotok": false,
-        "axes": 4,
+        "number": "H380KK871",
+        "volume": 8,
+        "rent": true,
+        "gidrolotok": true,
+        "axes": 6,
         "work_time_start": "09:00:00",
         "work_time_end": "18:00:00",
         "factories": [
@@ -409,8 +408,52 @@
     },
     {
         "id": 29,
-        "number": "H177KK918",
+        "number": "H340KK217",
+        "volume": 8,
+        "rent": false,
+        "gidrolotok": false,
+        "axes": 6,
+        "work_time_start": "09:00:00",
+        "work_time_end": "18:00:00",
+        "factories": [
+            2,
+            1
+        ],
+        "factory_start": 1
+    },
+    {
+        "id": 30,
+        "number": "H589KK245",
         "volume": 12,
+        "rent": false,
+        "gidrolotok": true,
+        "axes": 4,
+        "work_time_start": "09:00:00",
+        "work_time_end": "18:00:00",
+        "factories": [
+            2,
+            1
+        ],
+        "factory_start": 1
+    },
+    {
+        "id": 31,
+        "number": "H123KK840",
+        "volume": 10,
+        "rent": true,
+        "gidrolotok": true,
+        "axes": 4,
+        "work_time_start": "09:00:00",
+        "work_time_end": "18:00:00",
+        "factories": [
+            2
+        ],
+        "factory_start": 2
+    },
+    {
+        "id": 32,
+        "number": "H159KK966",
+        "volume": 10,
         "rent": true,
         "gidrolotok": true,
         "axes": 6,
@@ -423,17 +466,120 @@
         "factory_start": 2
     },
     {
-        "id": 30,
-        "number": "H788KK822",
+        "id": 33,
+        "number": "H244KK511",
         "volume": 8,
+        "rent": true,
+        "gidrolotok": true,
+        "axes": 6,
+        "work_time_start": "09:00:00",
+        "work_time_end": "18:00:00",
+        "factories": [
+            2,
+            1
+        ],
+        "factory_start": 1
+    },
+    {
+        "id": 34,
+        "number": "H602KK940",
+        "volume": 10,
         "rent": false,
         "gidrolotok": false,
-        "axes": 6,
+        "axes": 4,
+        "work_time_start": "09:00:00",
+        "work_time_end": "18:00:00",
+        "factories": [
+            1,
+            2
+        ],
+        "factory_start": 2
+    },
+    {
+        "id": 35,
+        "number": "H396KK316",
+        "volume": 12,
+        "rent": false,
+        "gidrolotok": true,
+        "axes": 4,
+        "work_time_start": "09:00:00",
+        "work_time_end": "18:00:00",
+        "factories": [
+            1
+        ],
+        "factory_start": 1
+    },
+    {
+        "id": 36,
+        "number": "H694KK536",
+        "volume": 10,
+        "rent": false,
+        "gidrolotok": true,
+        "axes": 4,
+        "work_time_start": "09:00:00",
+        "work_time_end": "18:00:00",
+        "factories": [
+            1
+        ],
+        "factory_start": 1
+    },
+    {
+        "id": 37,
+        "number": "H971KK543",
+        "volume": 8,
+        "rent": true,
+        "gidrolotok": true,
+        "axes": 4,
+        "work_time_start": "09:00:00",
+        "work_time_end": "18:00:00",
+        "factories": [
+            1,
+            2
+        ],
+        "factory_start": 2
+    },
+    {
+        "id": 38,
+        "number": "H744KK342",
+        "volume": 8,
+        "rent": true,
+        "gidrolotok": false,
+        "axes": 4,
+        "work_time_start": "09:00:00",
+        "work_time_end": "18:00:00",
+        "factories": [
+            1,
+            2
+        ],
+        "factory_start": 2
+    },
+    {
+        "id": 39,
+        "number": "H869KK262",
+        "volume": 10,
+        "rent": false,
+        "gidrolotok": true,
+        "axes": 4,
         "work_time_start": "09:00:00",
         "work_time_end": "18:00:00",
         "factories": [
             2
         ],
         "factory_start": 2
+    },
+    {
+        "id": 40,
+        "number": "H687KK781",
+        "volume": 12,
+        "rent": true,
+        "gidrolotok": false,
+        "axes": 6,
+        "work_time_start": "09:00:00",
+        "work_time_end": "18:00:00",
+        "factories": [
+            2,
+            1
+        ],
+        "factory_start": 1
     }
 ]

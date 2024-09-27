@@ -1,7 +1,7 @@
 {
   "num_factories": 2,
-  "plants_per_address": 2,
-  "num_vehicles": 30,
+  "plants_per_address": 4,
+  "num_vehicles": 40,
   "num_orders": 5,
   "num_customers": 2
 }

@@ -38,13 +38,13 @@ class Plant:
         return None
 
     def reserve_loading_slot(self, trip):
-        start = trip.start_at
+        start = trip.plant_arrive_at
         end = start + self.loading_time
         self.loading_schedule[trip.id] = {'start': start, 'end': end}
 
 
 class Vehicle:
-    def __init__(self, id, number, volume, rent, gidrolotok, axes, work_time_start, work_time_end, factories, factory_start, schedule=None):
+    def __init__(self, id, number, volume, rent, gidrolotok, axes, work_time_start, work_time_end, factories, factory_start, travel_times, schedule=None):
         self.id = id
         self.number = number
         self.volume = volume
@@ -56,46 +56,47 @@ class Vehicle:
         self.factories = factories
         self.schedule = schedule if schedule is not None else []
         self.factory_start = factory_start
+        self.travel_times = travel_times
 
     def is_available(self, trip):
         """
         Проверяет доступность транспортного средства на весь период поездки.
         """
         # Проверка рабочих часов
-        if not (self.work_time_start <= trip.start_at <= self.work_time_end and
+        if not (self.work_time_start <= trip.plant_arrive_at <= self.work_time_end and
                 self.work_time_start <= trip.unload_at <= self.work_time_end):
             return False
 
         # Проверка, что водитель может загрузиться на заводе
-        if trip.factory_id not in self.factories:
+        if trip.plant.factory_id not in self.factories:
             return False
 
         intervals = []
-        plant_intervals = []
+        customer_intervals = []
         if len(self.schedule) == 0:
             intervals = [(self.work_time_start, self.work_time_end)]
-            plant_intervals = [(self.factory_start, None)]
+            customer_intervals = [(None, None)]
         else:
             for i, tr in enumerate(self.schedule):
                 if i == 0:
-                    intervals.append((self.work_time_start, tr.start_at))
-                    plant_intervals.append((self.factory_start, self.schedule[i].plant_id))
+                    intervals.append((self.work_time_start, tr.customer_start_at))
+                    customer_intervals.append((None, self.schedule[i].delivery_start_id))
                 else:
-                    intervals.append((self.schedule[i - 1].return_at, tr.start_at))
-                    plant_intervals.append((self.schedule[i - 1].return_factory_id, self.schedule[i].factory_id))
-            intervals.append((self.schedule[-1].return_at, self.work_time_end))
-            plant_intervals.append((self.schedule[-1].return_factory_id, None))
+                    intervals.append((self.schedule[i - 1].unload_at, tr.customer_start_at))
+                    customer_intervals.append((self.schedule[i - 1].order.delivery_address_id, self.schedule[i].delivery_start_id))
+            intervals.append((self.schedule[-1].unload_at, self.work_time_end))
+            customer_intervals.append((self.schedule[-1].order.delivery_address_id, None))
 
-        def equal_plants(pl1, pl2):
+        def equal_deliveries(pl1, pl2):
             if pl1 is None or pl2 is None:
                 return True
             return pl1 == pl2
 
         for i, interval in enumerate(intervals):
             start, end = interval
-            plant_start, plant_end = plant_intervals[i]
+            plant_start, plant_end = customer_intervals[i]
 
-            if (start <= trip.start_at) and (trip.return_at <= end) and (equal_plants(plant_start, trip.factory_id) and equal_plants(trip.return_factory_id, plant_end)):
+            if (start <= trip.customer_start_at) and (trip.unload_at <= end) and (equal_deliveries(plant_start, trip.delivery_start_id) and equal_deliveries(trip.order.delivery_address_id, plant_end)):
                 return True
 
         return False
@@ -136,55 +137,53 @@ class Order:
 
 
 class Trip:
-    def __init__(self, order_id, plant_id, factory_id, delivery_address_id, vehicle_id,
-                 confirm, total, start_at, load_at, arrive_at, unload_at,
-                 return_at, status, return_plant_id, return_factory_id, plan_date_start,
-                 plan_date_object, plan_date_done):
-        self.id = f"{order_id}_{arrive_at}"
-        self.order_id = order_id
-        self.plant_id = plant_id
-        self.factory_id = factory_id
-        self.delivery_address_id = delivery_address_id
-        self.vehicle_id = vehicle_id
+    def __init__(self, order, plant, vehicle, confirm, total,
+                 customer_start_at, plant_arrive_at, load_at, arrive_at, unload_at, status, delivery_start_id,
+                 plan_date_object):
+        self.id = f"{order.id}_{arrive_at}"
+        self.order = order
+        self.plant = plant
+        self.vehicle = vehicle
         self.confirm = confirm
         self.total = total
-        self.start_at = start_at
+        self.customer_start_at = customer_start_at
+        self.plant_arrive_at = plant_arrive_at
         self.load_at = load_at
         self.arrive_at = arrive_at
         self.unload_at = unload_at
-        self.return_at = return_at
+        self.delivery_start_id = delivery_start_id
         self.status = status
-        self.return_plant_id = return_plant_id
-        self.return_factory_id = return_factory_id
-        self.plan_date_start = plan_date_start
         self.plan_date_object = plan_date_object
-        self.plan_date_done = plan_date_done
+
 
     def shift(self, time_shift):
-        self.start_at += time_shift
-        self.load_at += time_shift
-        self.arrive_at += time_shift
-        self.unload_at += time_shift
-        self.return_at += time_shift
+        if self.customer_start_at:
+            self.customer_start_at += time_shift
+        if self.plant_arrive_at:
+            self.plant_arrive_at += time_shift
+        if self.load_at:
+            self.load_at += time_shift
+        if self.arrive_at:
+            self.arrive_at += time_shift
+        if self.unload_at:
+            self.unload_at += time_shift
 
 
     #make JSON serializable
     def to_dict(self):
         return {
             "id": self.id,
-            "order_id": self.order_id,
-            "plant_id": self.plant_id,
-            "vehicle_id": self.vehicle_id,
+            "order": self.order.id,
+            "plant": self.plant.id,
+            "vehicle": self.vehicle.id,
             "confirm": self.confirm,
             "total": self.total,
-            "start_at": self.start_at.strftime('%Y-%m-%d %H:%M:%S'),
+            "customer_start_at": self.customer_start_at.strftime('%Y-%m-%d %H:%M:%S'),
+            "plant_arrive_at": self.plant_arrive_at.strftime('%Y-%m-%d %H:%M:%S'),
             "load_at": self.load_at.strftime('%Y-%m-%d %H:%M:%S'),
             "arrive_at": self.arrive_at.strftime('%Y-%m-%d %H:%M:%S'),
             "unload_at": self.unload_at.strftime('%Y-%m-%d %H:%M:%S'),
-            "return_at": self.return_at.strftime('%Y-%m-%d %H:%M:%S'),
             "status": self.status,
-            "return_plant_id": self.return_plant_id,
-            "plan_date_start": self.plan_date_start,
-            "plan_date_object": self.plan_date_object.strftime('%Y-%m-%d %H:%M:%S'),
-            "plan_date_done": self.plan_date_done
+            "delivery_start_id": self.delivery_start_id,
+            "plan_date_object": self.plan_date_object.strftime('%Y-%m-%d %H:%M:%S')
         }

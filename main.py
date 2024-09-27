@@ -27,7 +27,7 @@ def create_plants(plants_data):
     return plants
 
 
-def create_vehicles(vehicles_data):
+def create_vehicles(vehicles_data, travel_times):
     vehicles = []
     for vehicle in vehicles_data:
         v = Vehicle(
@@ -40,7 +40,8 @@ def create_vehicles(vehicles_data):
             work_time_start=vehicle['work_time_start'],
             work_time_end=vehicle['work_time_end'],
             factories=vehicle['factories'],
-            factory_start=vehicle['factory_start']
+            factory_start=vehicle['factory_start'],
+            travel_times=travel_times
         )
         vehicles.append(v)
     return vehicles
@@ -100,13 +101,14 @@ def main():
 
     # Создание объектов
     plants = create_plants(plants_data)
-    vehicles = create_vehicles(vehicles_data)
-    customers = create_customers(customers_data)
     travel_times = create_travel_times(travel_times_data)
+    vehicles = create_vehicles(vehicles_data, travel_times)
+    customers = create_customers(customers_data)
+
 
     best_metric = None
     best_result = None
-    for _ in range(10):
+    for _ in range(5):
         # Создание объекта Scheduler и запуск симуляции
         scheduler = Scheduler(plants=plants, vehicles=vehicles, customers=customers, travel_times=travel_times)
         scheduler.simulate()
