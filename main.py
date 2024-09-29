@@ -2,7 +2,7 @@
 import copy
 import json
 from datetime import datetime, timedelta
-from classes import Plant, Vehicle, Customer, Order
+from classes import Plant, Vehicle, Customer, Order, Trip
 from simulation import Scheduler
 import cProfile
 
@@ -67,7 +67,9 @@ def create_customers(customers_data):
                 axle=order['axle'],
                 gidrolotok=order['gidrolotok'],
                 plants=order['plants'],
-                delivery_address_id=order['delivery_address_id']
+                delivery_address_id=order['delivery_address_id'],
+                intensity=order['intensity'],
+                strategy=order['strategy']
             )
             new_customer.add_order(o)
         customers.append(new_customer)
@@ -80,6 +82,33 @@ def create_travel_times(travel_times_data):
         key = (entry['plant_id'], entry['customer_id'])
         travel_times[key] = timedelta(minutes=entry['travel_time_minutes'])
     return travel_times
+
+
+def create_trips(trips_data):
+    trips = []
+    for trip in trips_data:
+        t = Trip(
+            order_id=trip.get('order_id'),
+            plant_id=trip.get('plant_id'),
+            factory_id=trip.get('factory_id'),
+            delivery_address_id=trip.get('delivery_address_id'),
+            vehicle_id=trip.get('vehicle_id'),
+            confirm=trip.get('confirm'),
+            total=trip.get('total'),
+            start_at=datetime.strptime(trip.get('start_at'), '%Y-%m-%d %H:%M:%S'),
+            load_at=datetime.strptime(trip.get('load_at'), '%Y-%m-%d %H:%M:%S'),
+            arrive_at=datetime.strptime(trip.get('arrive_at'), '%Y-%m-%d %H:%M:%S'),
+            unload_at=datetime.strptime(trip.get('unload_at'), '%Y-%m-%d %H:%M:%S'),
+            return_at=datetime.strptime(trip.get('return_at'), '%Y-%m-%d %H:%M:%S'),
+            status=trip.get('status'),
+            return_plant_id=trip.get('return_plant_id'),
+            return_factory_id=trip.get('return_factory_id'),
+            plan_date_start=trip.get('plan_date_start'),
+            plan_date_object=datetime.strptime(trip.get('arrive_at'), '%Y-%m-%d %H:%M:%S'),
+            plan_date_done=trip.get('plan_date_done')
+        )
+        trips.append(t)
+    return trips
 
 
 def main():
@@ -97,18 +126,20 @@ def main():
     vehicles_data = load_json_data(vehicles_file)
     customers_data = load_json_data(customers_file)
     travel_times_data = load_json_data(travel_times_file)
+    reserved_trips_data = load_json_data(f'{path}/trips.json')
 
     # Создание объектов
     plants = create_plants(plants_data)
     vehicles = create_vehicles(vehicles_data)
     customers = create_customers(customers_data)
     travel_times = create_travel_times(travel_times_data)
+    reserved_trips = create_trips(reserved_trips_data)
 
     best_metric = None
     best_result = None
-    for _ in range(10):
+    for _ in range(1):
         # Создание объекта Scheduler и запуск симуляции
-        scheduler = Scheduler(plants=plants, vehicles=vehicles, customers=customers, travel_times=travel_times)
+        scheduler = Scheduler(plants=plants, vehicles=vehicles, customers=customers, travel_times=travel_times, trips=reserved_trips)
         scheduler.simulate()
 
         if best_metric is None or scheduler.score() > best_metric:

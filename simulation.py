@@ -10,7 +10,7 @@ from classes import Plant, Vehicle, Customer, Order, Trip
 
 
 class Scheduler:
-    def __init__(self, plants, vehicles, customers, travel_times):
+    def __init__(self, plants, vehicles, customers, travel_times, trips):
         self.travel_times = copy.deepcopy(travel_times)
         self.customer_delivery_queue = []
 
@@ -57,6 +57,11 @@ class Scheduler:
         self.failed_trips = []
         self.metrics = None
 
+        for trip in trips:
+            self.assigned_trips.append(trip)
+            self.plants[trip.plant_id].reserve_loading_slot(trip)
+            self.vehicles[trip.vehicle_id].assign_trip(trip)
+
     def get_trip_distance(self, trip):
         return self.travel_times[(trip.plant_id, trip.delivery_address_id)] + self.travel_times[(trip.return_plant_id, trip.delivery_address_id)]
 
@@ -88,7 +93,8 @@ class Scheduler:
                 if self.orders[new_trip.order_id].total == 0:
                     self.orders[new_trip.order_id].status = "done"
                 else:
-                    delivery_interval = order.time_interval_client if order.type_delivery == "withInterval" else order.time_unloading
+                    #delivery_interval = order.time_interval_client if order.type_delivery == "withInterval" else order.time_unloading
+                    delivery_interval = order.compute_delivery_interval()
                     self.customer_delivery_queue.append(Trip(
                         order_id=order.id,
                         plant_id=None,
@@ -156,7 +162,7 @@ class Scheduler:
                     trip_variant.shift(time_shift)
 
                     if vehicle.is_available(trip_variant):
-                        suitable_trips.append(copy.deepcopy(trip_variant))
+                        suitable_trips.append(copy.copy(trip_variant))
 
         if not suitable_trips:
             return None, "No suitable trips"

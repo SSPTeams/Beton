@@ -48,60 +48,91 @@ def visualize_assigned_trips(assigned_trips):
         'Loading': 'skyblue',
         'Travel to Customer': 'lightgreen',
         'Unloading': 'salmon',
-        'Return to Plant': 'lightsalmon'
+        'Return to Plant': 'lightsalmon',
+        'Reserved': 'darkgrey'  # Color for reserved trips
     }
 
     # Plot each trip
     for i, vehicle_id in enumerate(vehicle_ids):
         trips = vehicles_schedule[vehicle_id]
         for trip in trips:
-            # Parse times
-            start_at = datetime.strptime(trip['start_at'], '%Y-%m-%d %H:%M:%S')
-            load_at = datetime.strptime(trip['load_at'], '%Y-%m-%d %H:%M:%S')
-            arrive_at = datetime.strptime(trip['arrive_at'], '%Y-%m-%d %H:%M:%S')
-            unload_at = datetime.strptime(trip['unload_at'], '%Y-%m-%d %H:%M:%S')
-            return_at = datetime.strptime(trip['return_at'], '%Y-%m-%d %H:%M:%S')
-
-            # Define phases
-            phases = [
-                ('Loading', start_at, load_at),
-                ('Travel to Customer', load_at, arrive_at),
-                ('Unloading', arrive_at, unload_at),
-                ('Return to Plant', unload_at, return_at)
-            ]
-
-            # Plot each phase
-            for phase, start_time, end_time in phases:
-                start_num = mdates.date2num(start_time)
-                end_num = mdates.date2num(end_time)
-                duration = end_num - start_num
+            status = trip.get('status', 'new')
+            if status == 'reserved':
+                # For reserved trips, draw the entire trip as one dark grey bar
+                start_at = datetime.strptime(trip['start_at'], '%Y-%m-%d %H:%M:%S')
+                return_at = datetime.strptime(trip['return_at'], '%Y-%m-%d %H:%M:%S')
+                duration = mdates.date2num(return_at) - mdates.date2num(start_at)
 
                 ax.barh(
                     i,
                     duration,
-                    left=start_num,
+                    left=mdates.date2num(start_at),
                     height=0.4,
-                    color=phase_colors.get(phase, 'grey'),
+                    color=phase_colors['Reserved'],
                     edgecolor='black'
                 )
 
-                # Add annotations for Loading and Unloading phases
-                if phase in ['Loading', 'Unloading']:
-                    mid_time = start_time + (end_time - start_time) / 2
-                    annotation = f"{phase}\n"
-                    if phase == 'Loading':
-                        annotation += f"Plant {trip['plant_id']}"
-                    else:
-                        annotation += f"Order {trip['order_id']}"
-                    ax.text(
-                        mdates.date2num(mid_time),
+                # Optionally, add annotation
+                mid_time = start_at + (return_at - start_at) / 2
+                annotation = f"Reserved\nTrip ID: {trip['id']}"
+                ax.text(
+                    mdates.date2num(mid_time),
+                    i,
+                    annotation,
+                    va='center',
+                    ha='center',
+                    fontsize=8,
+                    color='red'
+                )
+                continue  # Skip to next trip
+            else:
+                # Parse times
+                start_at = datetime.strptime(trip['start_at'], '%Y-%m-%d %H:%M:%S')
+                load_at = datetime.strptime(trip['load_at'], '%Y-%m-%d %H:%M:%S')
+                arrive_at = datetime.strptime(trip['arrive_at'], '%Y-%m-%d %H:%M:%S')
+                unload_at = datetime.strptime(trip['unload_at'], '%Y-%m-%d %H:%M:%S')
+                return_at = datetime.strptime(trip['return_at'], '%Y-%m-%d %H:%M:%S')
+
+                # Define phases
+                phases = [
+                    ('Loading', start_at, load_at),
+                    ('Travel to Customer', load_at, arrive_at),
+                    ('Unloading', arrive_at, unload_at),
+                    ('Return to Plant', unload_at, return_at)
+                ]
+
+                # Plot each phase
+                for phase, start_time, end_time in phases:
+                    start_num = mdates.date2num(start_time)
+                    end_num = mdates.date2num(end_time)
+                    duration = end_num - start_num
+
+                    ax.barh(
                         i,
-                        annotation,
-                        va='center',
-                        ha='center',
-                        fontsize=8,
-                        color='black'
+                        duration,
+                        left=start_num,
+                        height=0.4,
+                        color=phase_colors.get(phase, 'grey'),
+                        edgecolor='black'
                     )
+
+                    # Add annotations for Loading and Unloading phases
+                    if phase in ['Loading', 'Unloading']:
+                        mid_time = start_time + (end_time - start_time) / 2
+                        annotation = f"{phase}\n"
+                        if phase == 'Loading':
+                            annotation += f"Plant {trip['plant_id']}"
+                        else:
+                            annotation += f"Order {trip['order_id']}"
+                        ax.text(
+                            mdates.date2num(mid_time),
+                            i,
+                            annotation,
+                            va='center',
+                            ha='center',
+                            fontsize=8,
+                            color='black'
+                        )
 
     # Create legend
     patches = [mpatches.Patch(color=color, label=phase) for phase, color in phase_colors.items()]

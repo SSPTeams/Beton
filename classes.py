@@ -118,7 +118,7 @@ class Order:
     def __init__(self, id, status, total,
                  date_shipment, first_order_time_delivery, time_unloading,
                  type_delivery, time_interval_client, axle, gidrolotok,
-                 plants, delivery_address_id):
+                 plants, delivery_address_id, intensity, strategy):
         self.id = id
         self.status = status
         self.total = total
@@ -133,6 +133,16 @@ class Order:
         self.delivery_address_id = delivery_address_id
         self.assigned_trips = []  # Список назначенных поездок
         self.failure_reasons = []  # Список причин, по которым доставка не была выполнена
+
+        self.intensity = intensity
+        self.strategy = strategy
+
+    def compute_delivery_interval(self):
+        if self.type_delivery == "withInterval":
+            return self.time_interval_client
+        else:
+            # TODO добавить стратегии
+            return timedelta(minutes=round(60 / (self.intensity / 10)))
 
 
 class Trip:

@@ -3,5 +3,6 @@
   "plants_per_address": 2,
   "num_vehicles": 30,
   "num_orders": 5,
-  "num_customers": 2
+  "num_customers": 2,
+  "num_trips": 2
 }

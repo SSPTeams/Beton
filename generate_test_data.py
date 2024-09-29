@@ -60,7 +60,9 @@ def generate_customer_orders(customer_id, num_orders, plants):
             "axle": random.choice([4, 6]),
             "gidrolotok": random.choice([True, False]),
             "plants": random.sample([plant["id"] for plant in plants], k=random.randint(1, len(plants))),
-            "delivery_address_id": customer_id
+            "delivery_address_id": customer_id,
+            "intensity": random.randint(20, 70),
+            "strategy": random.choice(["minimum_vehicles", "evenly", "equal_volume"])
         }
         order_counter += 1
         orders.append(order)
@@ -95,6 +97,31 @@ def generate_travel_times(plants, customers):
     return travel_times
 
 
+def generate_existing_trips(customers, plants, vehicles, num_trips=3):
+    trips = []
+    for i in range(num_trips):
+        customer = random.choice(customers)
+        plant = random.choice(plants)
+        vehicle = random.choice(vehicles)
+
+        start_at = datetime.today().replace(hour=random.randint(11, 15), minute=random.randint(0, 59))
+
+        trip = {
+            "order_id": random.choice(customer['orders'])['id'],
+            "plant_id": plant['id'],
+            "factory_id": plant['factory_id'],
+            "vehicle_id": vehicle['id'],
+            "start_at": start_at.strftime('%Y-%m-%d %H:%M:%S'),
+            "load_at": (start_at + timedelta(minutes=random.randint(5, 15))).strftime('%Y-%m-%d %H:%M:%S'),
+            "arrive_at": (start_at + timedelta(minutes=random.randint(20, 45))).strftime('%Y-%m-%d %H:%M:%S'),
+            "unload_at": (start_at + timedelta(minutes=random.randint(50, 70))).strftime('%Y-%m-%d %H:%M:%S'),
+            "return_at": (start_at + timedelta(minutes=random.randint(75, 90))).strftime('%Y-%m-%d %H:%M:%S'),
+            "status": "reserved",
+        }
+        trips.append(trip)
+    return trips
+
+
 def save_json(data, filename):
     with open(filename, 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
@@ -109,6 +136,7 @@ def main():
     vehicles = generate_vehicles(num_vehicles=config['num_vehicles'], plants=plants)
     customers = generate_customers(num_customers=config['num_customers'], plants=plants, num_orders=config['num_orders'])
     travel_times = generate_travel_times(plants, customers)
+    trips = generate_existing_trips(customers, plants, vehicles, num_trips=config['num_trips'])
 
 
     path = f'data/{case_name}'
@@ -117,6 +145,7 @@ def main():
     save_json(vehicles, f'{path}/vehicles.json')
     save_json(customers, f'{path}/customers.json')
     save_json(travel_times, f'{path}/travel_times.json')
+    save_json(trips, f'{path}/trips.json')
 
     print(f"Тестовые данные успешно сгенерированы и сохранены в папке {path}.")
 

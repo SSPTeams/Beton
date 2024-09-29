@@ -7,18 +7,22 @@
                 "id": 0,
                 "status": "new",
                 "total": 100,
-                "date_shipment": "2024-09-27",
+                "date_shipment": "2024-09-29",
                 "first_order_time_delivery": "09:00:00",
-                "time_unloading": 38,
+                "time_unloading": 37,
                 "type_delivery": "withoutInterval",
-                "time_interval_client": 51,
+                "time_interval_client": 55,
                 "axle": 4,
-                "gidrolotok": false,
+                "gidrolotok": true,
                 "plants": [
-                    3,
-                    2
+                    1,
+                    4,
+                    2,
+                    3
                 ],
-                "delivery_address_id": 1
+                "delivery_address_id": 1,
+                "intensity": 68,
+                "strategy": "equal_volume"
             }
         ]
     },
@@ -30,19 +34,19 @@
                 "id": 1,
                 "status": "new",
                 "total": 100,
-                "date_shipment": "2024-09-27",
-                "first_order_time_delivery": "10:00:00",
-                "time_unloading": 48,
+                "date_shipment": "2024-09-29",
+                "first_order_time_delivery": "11:00:00",
+                "time_unloading": 49,
                 "type_delivery": "withInterval",
-                "time_interval_client": 39,
+                "time_interval_client": 16,
                 "axle": 6,
                 "gidrolotok": false,
                 "plants": [
-                    4,
-                    3,
-                    1
+                    2
                 ],
-                "delivery_address_id": 2
+                "delivery_address_id": 2,
+                "intensity": 69,
+                "strategy": "equal_volume"
             }
         ]
     }
