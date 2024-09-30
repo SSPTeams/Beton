@@ -7,6 +7,7 @@ from datetime import timedelta, datetime
 import numpy as np
 
 from classes import Plant, Vehicle, Customer, Order, Trip
+from utils import find_min_time
 
 
 class Scheduler:
@@ -80,10 +81,6 @@ class Scheduler:
             trip_ = self.customer_delivery_queue.pop(get_first_trip(self.customer_delivery_queue))
             new_trip, err = self.assign_trip(trip_)
             if not new_trip:
-                self.failed_trips.append((new_trip, err))
-                trip_.arrive_at = trip_.arrive_at + timedelta(minutes=10)
-                if trip_.arrive_at < self.vehicles_end_time:
-                    self.customer_delivery_queue.append(trip_)
                 continue
             else:
                 self.assigned_trips.append(new_trip)
@@ -140,6 +137,16 @@ class Scheduler:
 
             for pto_id, plant_from in self.plants.items():
                 for pfrom_id, plant_to in self.plants.items():
+                    start_at = trip.arrive_at - self.get_travel_time(start=plant_from.id, end=trip.delivery_address_id) - self.plants[plant_from.id].loading_time
+                    plant_start_intervals = plant_from.get_intervals()
+                    length = self.get_travel_time(start=plant_from.id, end=trip.delivery_address_id) + self.get_travel_time(start=plant_to.id, end=trip.delivery_address_id) + plant_to.loading_time + self.orders[trip.order_id].time_unloading
+
+                    vehicle_start_intervals = vehicle.get_intervals(plant_from.factory_id, plant_to.factory_id, length)
+
+                    start_at = find_min_time(plant_start_intervals, vehicle_start_intervals, start_at)
+                    if start_at is None:
+                        continue
+
                     trip_variant.plant_id = plant_from.id
                     trip_variant.factory_id = plant_from.factory_id
                     trip_variant.arrive_at = trip.arrive_at
@@ -148,21 +155,14 @@ class Scheduler:
                     trip_variant.return_factory_id = plant_to.factory_id
                     trip_variant.total = min(vehicle.volume, self.orders[trip.order_id].total)
 
-                    trip_variant.load_at = trip_variant.arrive_at - self.get_travel_time(start=plant_from.id, end=self.orders[trip.order_id].delivery_address_id)
-                    trip_variant.start_at = trip_variant.load_at - self.plants[plant_from.id].loading_time
+                    trip_variant.start_at = start_at
+                    trip_variant.load_at = trip_variant.start_at + self.plants[plant_from.id].loading_time
+                    trip_variant.arrive_at = trip_variant.load_at + self.get_travel_time(start=plant_from.id, end=trip.delivery_address_id)
                     trip_variant.unload_at = trip_variant.arrive_at + self.orders[trip.order_id].time_unloading
                     trip_variant.return_at = trip_variant.unload_at + self.get_travel_time(end=self.orders[trip.order_id].delivery_address_id, start=plant_to.id)
-                    trip_variant.plan_date_object = trip_variant.arrive_at
+                    trip_variant.plan_date_object = trip.arrive_at
 
-                    plant_slot_variant = plant_from.get_first_available_slot(trip_variant.start_at)
-                    if plant_slot_variant is None:
-                        continue
-
-                    time_shift = plant_slot_variant - trip_variant.start_at
-                    trip_variant.shift(time_shift)
-
-                    if vehicle.is_available(trip_variant):
-                        suitable_trips.append(copy.copy(trip_variant))
+                    suitable_trips.append(copy.copy(trip_variant))
 
         if not suitable_trips:
             return None, "No suitable trips"

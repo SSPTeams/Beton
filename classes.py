@@ -42,6 +42,26 @@ class Plant:
         end = start + self.loading_time
         self.loading_schedule[trip.id] = {'start': start, 'end': end}
 
+    def get_intervals(self):
+        intervals = []
+        if len(self.loading_schedule) == 0:
+            intervals.append((self.work_time_start, self.work_time_end - self.loading_time))
+        else:
+            trips = sorted(self.loading_schedule.values(), key=lambda x: x['start'])
+            for i, tr in enumerate(trips):
+                if i == 0:
+                    interval = (self.work_time_start, tr['start'] - self.loading_time)
+                    if interval[0] <= interval[1]:
+                        intervals.append(interval)
+                else:
+                    interval = (trips[i - 1]['end'], tr['start'] - self.loading_time)
+                    if interval[0] <= interval[1]:
+                        intervals.append(interval)
+            interval = (trips[-1]['end'], self.work_time_end - self.loading_time)
+            if interval[0] <= interval[1]:
+                intervals.append(interval)
+        return intervals
+
 
 class Vehicle:
     def __init__(self, id, number, volume, rent, gidrolotok, axes, work_time_start, work_time_end, factories, factory_start, schedule=None):
@@ -102,6 +122,28 @@ class Vehicle:
 
     def assign_trip(self, trip):
         self.schedule.append(trip)
+
+    def get_intervals(self, fr_id, to_id, duration):
+        if len(self.schedule) == 0:
+            if self.factory_start == fr_id:
+                return [(self.work_time_start, self.work_time_end - duration)]
+            else:
+                return []
+        else:
+            intervals = []
+            for i, tr in enumerate(self.schedule):
+                if i == 0:
+                    if self.factory_start == fr_id and tr.factory_id == to_id:
+                        intervals.append((self.work_time_start, tr.start_at - duration))
+                else:
+                    if self.schedule[i - 1].return_factory_id == fr_id and tr.factory_id == to_id:
+                        intervals.append((self.schedule[i - 1].return_at, tr.start_at - duration))
+            if self.schedule[-1].return_factory_id == fr_id:
+                intervals.append((self.schedule[-1].return_at, self.work_time_end - duration))
+
+            intervals = [i for i in intervals if i[0] <= i[1]]
+            return intervals
+
 
 
 class Customer:
