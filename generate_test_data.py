@@ -62,8 +62,16 @@ def generate_customer_orders(customer_id, num_orders, plants):
             "plants": random.sample([plant["id"] for plant in plants], k=random.randint(1, len(plants))),
             "delivery_address_id": customer_id,
             "intensity": random.randint(20, 70),
-            "strategy": random.choice(["minimum_vehicles", "evenly", "equal_volume"])
+            "strategy": {
+                "type": random.choice(["minimum_vehicles", "evenly", "equal_volume"]),
+                "parameters": {
+                }
+            }
         }
+        if order['strategy']['type'] == "equal_volume":
+            order['strategy']['parameters']['volume'] = random.randint(8, 12)
+        elif order['strategy']['type'] == "evenly":
+            order['strategy']['parameters']['volume'] = random.randint(8, 12)
         order_counter += 1
         orders.append(order)
     return orders

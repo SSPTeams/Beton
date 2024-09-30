@@ -2,41 +2,41 @@
     {
         "plant_id": 1,
         "customer_id": 1,
-        "travel_time_minutes": 24
+        "travel_time_minutes": 35
     },
     {
         "plant_id": 1,
         "customer_id": 2,
-        "travel_time_minutes": 27
+        "travel_time_minutes": 31
     },
     {
         "plant_id": 2,
         "customer_id": 1,
-        "travel_time_minutes": 24
+        "travel_time_minutes": 35
     },
     {
         "plant_id": 2,
         "customer_id": 2,
-        "travel_time_minutes": 27
+        "travel_time_minutes": 31
     },
     {
         "plant_id": 3,
         "customer_id": 1,
-        "travel_time_minutes": 40
+        "travel_time_minutes": 23
     },
     {
         "plant_id": 3,
         "customer_id": 2,
-        "travel_time_minutes": 33
+        "travel_time_minutes": 32
     },
     {
         "plant_id": 4,
         "customer_id": 1,
-        "travel_time_minutes": 40
+        "travel_time_minutes": 23
     },
     {
         "plant_id": 4,
         "customer_id": 2,
-        "travel_time_minutes": 33
+        "travel_time_minutes": 32
     }
 ]

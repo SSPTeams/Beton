@@ -87,6 +87,7 @@ class Scheduler:
                 order = self.orders[new_trip.order_id]
                 vehicle = self.vehicles[new_trip.vehicle_id]
                 self.orders[new_trip.order_id].total -= new_trip.total
+                self.orders[new_trip.order_id].delivered.append(new_trip)
                 if self.orders[new_trip.order_id].total == 0:
                     self.orders[new_trip.order_id].status = "done"
                 else:
@@ -111,7 +112,6 @@ class Scheduler:
                         plan_date_start=None,
                         plan_date_object=None,
                         plan_date_done=None
-
                     ))
 
         self.calculate_metrics()
@@ -121,10 +121,25 @@ class Scheduler:
         return self.travel_times[(start, end)]
 
     def get_best_trip(self, trips):
-        travel_times = [self.get_trip_distance(trip) for trip in trips]
-        # randomly choose one of the best trips based on the minimum travel time (using probs)
-        probs = [1 / (tt.total_seconds() / 60)**0.5 for tt in travel_times]
-        best_trip = random.choices(trips, weights=probs)[0]
+        order = self.orders[trips[0].order_id]
+        filtered_trips = [trip for trip in trips if trip.arrive_at == min(trip.arrive_at for trip in trips)]
+
+        if order.strategy["type"] == "minimum_vehicles":
+            filtered_trips = [trip for trip in filtered_trips if trip.total == max(trip.total for trip in filtered_trips)]
+            travel_times = [self.get_trip_distance(trip) for trip in filtered_trips]
+            probs = [1 / (tt.total_seconds() / 60) ** 0.5 for tt in travel_times]
+            best_trip = random.choices(filtered_trips, weights=probs)[0]
+        elif order.strategy["type"] == "evenly":
+            delivered = [tr.total for tr in order.delivered]
+            median = np.median(delivered) if delivered else 10
+            probs = [1 / ((1 + 10*abs(median - trip.total))*(self.get_trip_distance(trip).total_seconds() / 60)**0.5) for trip in filtered_trips]
+            best_trip = random.choices(filtered_trips, weights=probs)[0]
+        else:
+            filtered_trips = [trip for trip in filtered_trips if trip.total >= order.strategy["parameters"]["volume"]]
+            travel_times = [self.get_trip_distance(trip) for trip in filtered_trips]
+            probs = [1 / (tt.total_seconds() / 60)**0.5 for tt in travel_times]
+            best_trip = random.choices(filtered_trips, weights=probs)[0]
+            best_trip.total = order.strategy["parameters"]["volume"]
         return best_trip
 
     def assign_trip(self, trip):

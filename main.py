@@ -137,7 +137,7 @@ def main():
 
     best_metric = None
     best_result = None
-    for _ in range(50):
+    for _ in range(10):
         # Создание объекта Scheduler и запуск симуляции
         scheduler = Scheduler(plants=plants, vehicles=vehicles, customers=customers, travel_times=travel_times, trips=reserved_trips)
         scheduler.simulate()

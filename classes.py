@@ -124,6 +124,7 @@ class Vehicle:
         self.schedule.append(trip)
 
     def get_intervals(self, fr_id, to_id, duration):
+        self.schedule = sorted(self.schedule, key=lambda x: x.start_at)
         if len(self.schedule) == 0:
             if self.factory_start == fr_id:
                 return [(self.work_time_start, self.work_time_end - duration)]
@@ -179,12 +180,21 @@ class Order:
         self.intensity = intensity
         self.strategy = strategy
 
+        self.delivered = []
+
     def compute_delivery_interval(self):
         if self.type_delivery == "withInterval":
             return self.time_interval_client
         else:
-            # TODO добавить стратегии
-            return timedelta(minutes=round(60 / (self.intensity / 10)))
+            if not self.intensity:
+                return timedelta(minutes=0)
+
+            last_time = max([trip.arrive_at for trip in self.delivered])
+            last_hour_delivered = [trip for trip in self.delivered if (last_time - trip.arrive_at) < timedelta(hours=1)]
+            if sum([tr.total for tr in last_hour_delivered]) < self.intensity:
+                return timedelta(minutes=0)
+            else:
+                return timedelta(minutes=60) - (last_time - min([trip.arrive_at for trip in last_hour_delivered]))
 
 
 class Trip:
